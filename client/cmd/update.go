@@ -17,51 +17,35 @@ package cmd
 
 import (
 	"fmt"
-	"context"
-	blogpb "github.com/mel-github/go-crud/proto"
-	//blogpb "../../proto"
+
 	"github.com/spf13/cobra"
 )
 
 // updateCmd represents the update command
 var updateCmd = &cobra.Command{
 	Use:   "update",
-	Short: "Find a Blog post by its ID",
-	Long: `Find a blog post by it's mongoDB Unique identifier.
-	
-	If no blog post is found for the ID it will return a 'Not Found' error`,
-	RunE: func(cmd *cobra.Command, args []string) error {
-		// Get the flags from CLI
-		id, err := cmd.Flags().GetString("id")
-		author, err := cmd.Flags().GetString("author")
-		title, err := cmd.Flags().GetString("title")
-		content, err := cmd.Flags().GetString("content")
+	Short: "A brief description of your command",
+	Long: `A longer description that spans multiple lines and likely contains examples
+and usage of using your command. For example:
 
-		// Create an UpdateBlogRequest
-		req := &blogpb.UpdateBlogReq{
-			&blogpb.Blog{
-				Id:       id,
-				AuthorId: author,
-				Title:    title,
-				Content:  content,
-			},
-		}
-
-		res, err := client.UpdateBlog(context.Background(), req)
-		if err != nil {
-			return err
-		}
-
-		fmt.Println(res)
-		return nil
+Cobra is a CLI library for Go that empowers applications.
+This application is a tool to generate the needed files
+to quickly create a Cobra application.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println("update called")
 	},
 }
 
 func init() {
-	updateCmd.Flags().StringP("id", "i", "", "The id of the blog")
-	updateCmd.Flags().StringP("author", "a", "", "Add an author")
-	updateCmd.Flags().StringP("title", "t", "", "A title for the blog")
-	updateCmd.Flags().StringP("content", "c", "", "The content for the blog")
-	updateCmd.MarkFlagRequired("id")
 	rootCmd.AddCommand(updateCmd)
+
+	// Here you will define your flags and configuration settings.
+
+	// Cobra supports Persistent Flags which will work for this command
+	// and all subcommands, e.g.:
+	// updateCmd.PersistentFlags().String("foo", "", "A help for foo")
+
+	// Cobra supports local flags which will only run when this command
+	// is called directly, e.g.:
+	// updateCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
